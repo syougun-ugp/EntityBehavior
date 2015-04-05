@@ -1,10 +1,14 @@
 #include "Player.h"
 #include "PlayerMover.h"
 
-Player::Player():
-EntityHierarchy("Player")
+Player::Player(std::string name) :
+EntityHierarchy(name)
 {
 	AddComponent(std::make_shared<PlayerMover>(*this));
+	AddComponent(std::make_shared<PlayerMover>(*this));
+	AddComponent(std::make_shared<PlayerMover>(*this));
+	AddComponent(std::make_shared<PlayerMover>(*this));
+
 }
 
 void Player::Awake()
@@ -16,7 +20,7 @@ void Player::Awake()
 void Player::Start()
 {
 	ComponentsStart();
-
+	auto gets = GetComponents<PlayerMover>("PlayerMover");
 }
 
 

@@ -11,6 +11,7 @@
 #include <memory>
 #include <iostream>
 #include <unordered_map>
+#include "EntityHierarchy.h"
 
 class EntityHierarchy;
 class Component;
@@ -19,10 +20,10 @@ class Hierarchy
 {
 public:
 	// “o˜^
-	void Register(std::shared_ptr<EntityHierarchy> entity);
+	static void Register(std::shared_ptr<EntityHierarchy> entity);
 
 	// íœ
-	void Deregistration(const std::string& name);
+	static void Deregistration(const std::string& name);
 
 	// ‘Síœ
 	void Clear();
@@ -39,14 +40,43 @@ public:
 	// •`‰æ
 	void Render();
 
-	// æ“¾
+	// –¼‘O‚Å’T‚·
+	static std::shared_ptr<EntityHierarchy> Find(const std::string& name);
+
+	// –¼‘O‚Å’T‚·
 	template<typename Type>
-	static std::shared_ptr<Type> GetComponent(const std::string& name);
+	static std::shared_ptr<Type> Find(const std::string& name)
+	{
+		auto findObject = hierarchyList.find(name);
+		if (findObject == hierarchyList.end()) return nullptr;
 
-	// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-	static std::shared_ptr<Component> GetComponent(const std::string& name);
+		std::cout << findObject->second->Name().c_str() << " æ“¾" << std::endl;
 
+		return std::dynamic_pointer_cast<Type>(findObject->second);
+	}
+
+	// ”z—ñ‚ğæ“¾
+	template<typename Type>
+	static std::vector<std::shared_ptr<Type>> FindObjectsOfType(const std::string& name)
+	{
+		auto findObjects = hierarchyList.equal_range(name);
+		std::vector<std::shared_ptr<Type>> components;
+		
+		components.clear();
+
+		for (auto iterator = findObjects.first; iterator != findObjects.second; iterator++)
+		{
+			auto target = *iterator;
+			components.push_back(std::dynamic_pointer_cast<Type>(target.second));
+			std::cout << target.second->Name().c_str() << " æ“¾" << std::endl;
+		}
+
+		std::cout << components.size << " ŒÂ‚ğæ“¾" << std::endl;
+
+		return components;
+
+	}
 private:
-	static std::unordered_map<std::string, std::shared_ptr<EntityHierarchy>> hierarchyList;
+	static std::unordered_multimap<std::string, std::shared_ptr<EntityHierarchy>> hierarchyList;
 
 };

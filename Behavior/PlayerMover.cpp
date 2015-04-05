@@ -6,9 +6,14 @@ EntityBehavior("PlayerMover", player.Name())
 {
 }
 
-void PlayerMover::Update()
+void PlayerMover::Awake()
 {
 	auto parent = GetComponentInParent();
 	auto player = parent->GetComponent<Player>();
+
+}
+
+void PlayerMover::Update()
+{
 
 }

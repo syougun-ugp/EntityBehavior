@@ -9,6 +9,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
 #include <unordered_map>
 #include "GameObject.h"
 
@@ -18,6 +19,7 @@ class Component :public GameObject
 {
 public:
 	Component(const std::string &name);
+	Component(const std::string &name,Tags tag);
 	Component(const std::string &name, const std::string& parentName);
 	Component();
 	
@@ -25,21 +27,46 @@ public:
 	void AddComponent(std::shared_ptr<EntityBehavior> gameObject);
 
 	// íœ
-	void RemoveComponent(const GameObject& gameObject);
+	void Destroy();
+
+	// –¼‘O‚Åíœ
+	void Destroy(const std::string &name);
+
 
 	// e‚ğæ“¾
-	std::shared_ptr<Component> GetComponentInParent();
+	std::shared_ptr<Component> GetComponentInParent()const ;
 
 	// æ“¾
 	template<class Type>
 	std::shared_ptr<Type> GetComponent(const std::string& name)
 	{
-		auto findObject = behaviorList.find(name);
-		if (findObject == behaviorList.end()) return nullptr;
+		auto findObject = childrenList.find(name);
+		if (findObject == childrenList.end()) return nullptr;
 
 		std::cout << findObject->second->Name().c_str() << " æ“¾" << std::endl;
 
 		return std::dynamic_pointer_cast<Type>(findObject->second);
+	}
+
+	// ”z—ñ‚ğæ“¾
+	template<class Type>
+	std::vector<std::shared_ptr<Type>> GetComponents(const std::string& name)
+	{
+		auto findObjects = childrenList.equal_range(name);
+		std::vector<std::shared_ptr<Type>> components;
+		
+		components.clear();
+
+		for (auto iterator = findObjects.first; iterator != findObjects.second; iterator++)
+		{
+			auto target = *iterator;
+			components.push_back(std::dynamic_pointer_cast<Type>(target.second));
+			std::cout << target.second->Name().c_str() << " æ“¾" << std::endl;
+		}
+
+		std::cout << components.size() << " ŒÂ‚ğæ“¾" << std::endl;
+
+		return components;
 	}
 
 	// æ“¾
@@ -57,7 +84,7 @@ protected:
 	void ComponentsUpdate();
 
 private:
-	std::unordered_map<std::string, std::shared_ptr<EntityBehavior>> behaviorList;
+	std::unordered_multimap<std::string, std::shared_ptr<EntityBehavior>> childrenList;
 	std::shared_ptr<GameObject> gameObject;
 	std::string parentName;
 

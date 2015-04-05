@@ -8,12 +8,12 @@ int main()
 
 	hierarchy->Register(std::make_shared<Player>());
 
-	hierarchy->Awake();
-	
-	hierarchy->Start();
-	
-	hierarchy->Update();
+	auto player = Hierarchy::Find("Player");
+	player->Instantiate(std::make_shared<Player>("Player2"));
 
+	hierarchy->Awake();
+	hierarchy->Start();
+	hierarchy->Update();
 	hierarchy->Render();
 
 	return 0;

@@ -9,6 +9,14 @@ parentName(name)
 {
 }
 
+Component::Component(const std::string &name,Tags tag) :
+GameObject(name, tag),
+gameObject(std::make_shared<GameObject>(name,tag)),
+parentName(name)
+{
+}
+
+
 Component::Component(const std::string &name, const std::string& parentName) :
 GameObject(name),
 gameObject(std::make_shared<GameObject>(name)),
@@ -28,13 +36,13 @@ void Component::ComponentsAwake()
 {
 	std::cout << "---------- ChildrensAwake ----------" << std::endl;
 
-	for (auto& behavior : behaviorList)
+	for (auto& children : childrenList)
 	{
-		if (!behavior.second->IsEnable()) continue;
+		if (!children.second->IsEnable()) continue;
 
-		std::cout << behavior.second->Name().c_str() << " Awake" << std::endl;
+		std::cout << children.second->Name().c_str() << " Awake" << std::endl;
 
-		behavior.second->Awake();
+		children.second->Awake();
 	}
 }
 
@@ -42,13 +50,13 @@ void Component::ComponentsStart()
 {
 	std::cout << "---------- ChildrensStart ----------" << std::endl;
 
-	for (auto& behavior : behaviorList)
+	for (auto& children : childrenList)
 	{
-		if (!behavior.second->IsEnable()) continue;
+		if (!children.second->IsEnable()) continue;
 
-		std::cout << behavior.second->Name().c_str() << " Start" << std::endl;
+		std::cout << children.second->Name().c_str() << " Start" << std::endl;
 
-		behavior.second->Start();
+		children.second->Start();
 	}
 }
 
@@ -56,13 +64,13 @@ void Component::ComponentsUpdate()
 {
 	std::cout << "---------- ChildrensUpdate ----------" << std::endl;
 
-	for (auto& behavior : behaviorList)
+	for (auto& children : childrenList)
 	{
-		if (!behavior.second->IsEnable()) continue;
+		if (!children.second->IsEnable()) continue;
 
-		std::cout << behavior.second->Name().c_str() << " Update" << std::endl;
+		std::cout << children.second->Name().c_str() << " Update" << std::endl;
 
-		behavior.second->Update();
+		children.second->Update();
 	}
 }
 
@@ -70,23 +78,34 @@ void Component::AddComponent(std::shared_ptr<EntityBehavior> gameObject)
 {
 	std::cout << gameObject->Name().c_str() << " í«â¡" << std::endl;
 
-	behaviorList.insert(std::make_pair(gameObject->Name(), gameObject));
+	childrenList.insert(std::make_pair(gameObject->Name(), gameObject));
 }
 
-void Component::RemoveComponent(const GameObject& gameObject)
+void Component::Destroy()
 {
-	auto itr = behaviorList.find(gameObject.Name());
-	if (itr != behaviorList.end()) return;
+	auto itr = childrenList.find(Name());
+	if (itr == childrenList.end()) return;
 
-	std::cout << gameObject.Name().c_str() << " çÌèú" << std::endl;
+	std::cout << itr->second->Name().c_str() << " çÌèú" << std::endl;
 
-	behaviorList.erase(itr);
+	childrenList.erase(itr);
 }
 
-std::shared_ptr<Component> Component::GetComponentInParent()
+// çÌèú
+void Component::Destroy(const std::string &name)
 {
-	auto parent = Hierarchy::GetComponent<Component>(parentName);
-	if (parent == nullptr) return nullptr;
+	auto itr = childrenList.find(name);
+	if (itr == childrenList.end()) return;
+
+	std::cout << itr->second->Name().c_str() << " çÌèú" << std::endl;
+
+	childrenList.erase(itr);
+}
+
+std::shared_ptr<Component> Component::GetComponentInParent()const
+{
+	auto parent = Hierarchy::Find<Component>(parentName);
+	if (!parent) return nullptr;
 
 	std::cout << Name() << "ÇÃêeÅ@"<< parent->Name().c_str() << " ÇéÊìæ" << std::endl;
 

@@ -4,7 +4,7 @@
 class Player :public EntityHierarchy
 {
 public:
-	Player();
+	Player(std::string name = "Player");
 
 	void Awake();
 	void Start();

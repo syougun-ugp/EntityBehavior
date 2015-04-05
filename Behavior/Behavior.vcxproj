@@ -84,6 +84,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Hierarchy.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMover.cpp" />
   </ItemGroup>
@@ -93,8 +94,10 @@
     <ClInclude Include="EntityHierarchy.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Hierarchy.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMover.h" />
+    <ClInclude Include="Tag.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,6 +8,7 @@ class PlayerMover :public EntityBehavior
 public:
 	PlayerMover(const Player& player);
 
+	void Awake();
 	void Update();
 
 private:

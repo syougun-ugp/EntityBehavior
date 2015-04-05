@@ -1,7 +1,6 @@
 #include "Hierarchy.h"
-#include "EntityHierarchy.h"
 
-std::unordered_map<std::string, std::shared_ptr<EntityHierarchy>> Hierarchy::hierarchyList;
+std::unordered_multimap<std::string, std::shared_ptr<EntityHierarchy>> Hierarchy::hierarchyList;
 
 void Hierarchy::Register(std::shared_ptr<EntityHierarchy> entity)
 {
@@ -82,18 +81,8 @@ void Hierarchy::Render()
 }
 
 
-template<typename Type>
-std::shared_ptr<Type> Hierarchy::GetComponent(const std::string& name)
-{
-	auto findObject = hierarchyList.find(name);
-	if (findObject == hierarchyList.end()) return nullptr;
 
-	std::cout << findObject->second->Name().c_str() << " Žæ“¾" << std::endl;
-
-	return std::dynamic_pointer_cast<Type>(findObject->second);
-}
-
-std::shared_ptr<Component> Hierarchy::GetComponent(const std::string& name)
+std::shared_ptr<EntityHierarchy> Hierarchy::Find(const std::string& name)
 {
 	auto findObject = hierarchyList.find(name);
 	if (findObject == hierarchyList.end()) return nullptr;
