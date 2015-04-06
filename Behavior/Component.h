@@ -40,6 +40,8 @@ public:
 	template<class Type>
 	std::shared_ptr<Type> GetComponent(const std::string& name)
 	{
+		std::cout << " GetComponent<T>()" << std::endl;
+
 		auto findObject = childrenList.find(name);
 		if (findObject == childrenList.end()) return nullptr;
 
@@ -52,6 +54,8 @@ public:
 	template<class Type>
 	std::vector<std::shared_ptr<Type>> GetComponents(const std::string& name)
 	{
+		std::cout << " GetComponents<T>()" << std::endl;
+
 		auto findObjects = childrenList.equal_range(name);
 		std::vector<std::shared_ptr<Type>> components;
 		
@@ -73,6 +77,8 @@ public:
 	template<class Type>
 	std::shared_ptr<Type> GetComponent()
 	{
+		std::cout << " GetComponent<T>()" << std::endl;
+
 		std::cout << gameObject->Name().c_str() << " Žæ“¾" << std::endl;
 
 		return std::dynamic_pointer_cast<Type>(gameObject);

@@ -1,8 +1,8 @@
 #include "EntityHierarchy.h"
 
 
-EntityHierarchy::EntityHierarchy(const std::string& name) :
-Component(name, name),
+EntityHierarchy::EntityHierarchy(const std::string& name,const Tags tag) :
+Component(name, tag),
 isActive(true)
 {
 }

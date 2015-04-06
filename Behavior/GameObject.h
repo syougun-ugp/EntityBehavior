@@ -32,7 +32,6 @@ public:
 	// 戻り値としては、登録したゲームオブジェクト
 	static std::shared_ptr<GameObject> Instantiate(std::shared_ptr<EntityHierarchy> gameObject);
 
-
 protected:
 	Tags tag; // オブジェクトのタグ
 

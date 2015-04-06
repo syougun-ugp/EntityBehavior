@@ -84,10 +84,52 @@ void Hierarchy::Render()
 
 std::shared_ptr<EntityHierarchy> Hierarchy::Find(const std::string& name)
 {
+	std::cout << " Find()" << std::endl;
+
 	auto findObject = hierarchyList.find(name);
 	if (findObject == hierarchyList.end()) return nullptr;
 
 	std::cout << findObject->second->Name().c_str() << " 取得" << std::endl;
 
 	return findObject->second;
+}
+
+
+// Tagでのゲームオブジェクトを取得
+std::shared_ptr<EntityHierarchy> Hierarchy::FindWithTag(const Tags tag)
+{
+	std::cout << " FindWithTag()" << std::endl;
+
+	for (auto& hierarchy : hierarchyList)
+	{
+		if (hierarchy.second->Tag() != tag) continue;
+
+		std::cout << hierarchy.second->Name().c_str() << " 取得" << std::endl;
+
+		return hierarchy.second;
+	}
+
+	return nullptr;
+}
+
+// Tagでのゲームオブジェクトを配列で取得
+std::vector<std::shared_ptr<EntityHierarchy>> Hierarchy::FindGameObjectsWithTag(const Tags tag)
+{
+	std::cout << " FindGameObjectsWithTag()" << std::endl;
+
+	std::vector<std::shared_ptr<EntityHierarchy>> gameObjects;
+	gameObjects.clear();
+
+	for (auto& hierarchy : hierarchyList)
+	{
+		if (hierarchy.second->Tag() != tag) continue;
+
+		std::cout << hierarchy.second->Name().c_str() << " 取得" << std::endl;
+
+		gameObjects.push_back(hierarchy.second);
+	}
+	
+	std::cout << gameObjects.size() << " 個を取得" << std::endl;
+
+	return gameObjects;
 }

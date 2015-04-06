@@ -16,5 +16,9 @@ int main()
 	hierarchy->Update();
 	hierarchy->Render();
 
+	auto playerTagObject = Hierarchy::FindWithTag(Tags::Player);
+	auto playerTagObjects = Hierarchy::FindGameObjectsWithTag(Tags::Player);
+	
+
 	return 0;
 }

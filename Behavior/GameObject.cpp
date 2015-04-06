@@ -29,6 +29,8 @@ tag(Tags::Default)
 // 戻り値としては、登録したゲームオブジェクト
 std::shared_ptr<GameObject> GameObject::Instantiate(std::shared_ptr<EntityHierarchy> gameObject)
 {
+	std::cout << " Instantiate()" << std::endl;
+
 	Hierarchy::Register(gameObject);
 	auto object = Hierarchy::Find(gameObject->Name());
 	return object;

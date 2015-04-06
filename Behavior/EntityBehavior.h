@@ -18,9 +18,11 @@ public:
 	EntityBehavior(const std::string& name, const std::string& parentName);
 
 	// Startの前に処理が実行させる
+	// 1度のみ実行
 	virtual void Awake(){}
 
 	// Updateの前に処理が実行させる
+	// 1度のみ実行
 	virtual void Start(){}
 	
 	// アップデート

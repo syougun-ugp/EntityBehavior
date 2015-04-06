@@ -25,6 +25,7 @@ parentName(parentName)
 
 }
 
+
 Component::Component() :
 GameObject("null"),
 gameObject(std::make_shared<GameObject>("null")),
@@ -76,6 +77,8 @@ void Component::ComponentsUpdate()
 
 void Component::AddComponent(std::shared_ptr<EntityBehavior> gameObject)
 {
+	std::cout << " AddComponent()" << std::endl;
+
 	std::cout << gameObject->Name().c_str() << " ’Ç‰Á" << std::endl;
 
 	childrenList.insert(std::make_pair(gameObject->Name(), gameObject));
@@ -83,6 +86,8 @@ void Component::AddComponent(std::shared_ptr<EntityBehavior> gameObject)
 
 void Component::Destroy()
 {
+	std::cout << " Destroy()" << std::endl;
+
 	auto itr = childrenList.find(Name());
 	if (itr == childrenList.end()) return;
 
@@ -94,6 +99,8 @@ void Component::Destroy()
 // íœ
 void Component::Destroy(const std::string &name)
 {
+	std::cout << " Destroy()" << std::endl;
+
 	auto itr = childrenList.find(name);
 	if (itr == childrenList.end()) return;
 
@@ -104,6 +111,8 @@ void Component::Destroy(const std::string &name)
 
 std::shared_ptr<Component> Component::GetComponentInParent()const
 {
+	std::cout << " GetComponentInParent()" << std::endl;
+
 	auto parent = Hierarchy::Find<Component>(parentName);
 	if (!parent) return nullptr;
 
