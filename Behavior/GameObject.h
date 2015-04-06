@@ -35,14 +35,18 @@ public:
 		return sortingLayer;
 	}
 
+	// 描画順を設定
+	void SetSortingLayer(SortingLayer sortingLayer);
+
 	// ゲームオブジェクトをHierarchyに登録して、生成する
 	// 戻り値としては、登録したゲームオブジェクト
 	static std::shared_ptr<GameObject> Instantiate(std::shared_ptr<EntityHierarchy> gameObject);
 
 protected:
 	Tags tag; // オブジェクトのタグ
-	SortingLayer sortingLayer; // 描画順レイヤー
 
 private:
+	SortingLayer sortingLayer; // 描画順レイヤー
+
 };
 

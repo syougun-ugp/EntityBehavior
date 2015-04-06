@@ -16,6 +16,13 @@ public:
 	EntityHierarchy(const std::string& name, const SortingLayer sortingLayer);
 	EntityHierarchy(const std::string& name, const Tags tag, const SortingLayer sortingLayer);
 
+	// •`‰æ
+	void Updatable();
+	
+	// •`‰æ
+	void Renderable();
+
+protected:
 	// Start‚Ì‘O‚Éˆ—‚ªÀs‚³‚¹‚é
 	virtual void Awake(){}
 
@@ -38,6 +45,14 @@ public:
 	bool IsActive()const{ return isActive; }
 
 private:
+	enum class UpdateState
+	{
+		Awake,
+		Start,
+		Update,
+	};
+
+	UpdateState state;
 	bool isActive;
 };
 

@@ -49,7 +49,7 @@ parentName("null")
 
 void Component::ComponentsAwake()
 {
-	std::cout << "---------- ChildrensAwake ----------" << std::endl;
+	std::cout << "---------- " << parentName << " ChildrensAwake ----------" << std::endl;
 
 	for (auto& children : childrenList)
 	{
@@ -59,11 +59,12 @@ void Component::ComponentsAwake()
 
 		children.second->Awake();
 	}
+
 }
 
 void Component::ComponentsStart()
 {
-	std::cout << "---------- ChildrensStart ----------" << std::endl;
+	std::cout << "---------- " << parentName << " ChildrensStart ----------" << std::endl;
 
 	for (auto& children : childrenList)
 	{
@@ -77,7 +78,7 @@ void Component::ComponentsStart()
 
 void Component::ComponentsUpdate()
 {
-	std::cout << "---------- ChildrensUpdate ----------" << std::endl;
+	std::cout << "---------- " << parentName << " ChildrensUpdate ----------" << std::endl;
 
 	for (auto& children : childrenList)
 	{
@@ -91,7 +92,7 @@ void Component::ComponentsUpdate()
 
 void Component::AddComponent(std::shared_ptr<EntityBehavior> gameObject)
 {
-	std::cout << " AddComponent()" << std::endl;
+	std::cout << Name() << " AddComponent()" << std::endl;
 
 	std::cout << gameObject->Name().c_str() << " ’Ç‰Á" << std::endl;
 
@@ -100,7 +101,7 @@ void Component::AddComponent(std::shared_ptr<EntityBehavior> gameObject)
 
 void Component::Destroy()
 {
-	std::cout << " Destroy()" << std::endl;
+	std::cout << Name() << " Destroy()" << std::endl;
 
 	auto itr = childrenList.find(Name());
 	if (itr == childrenList.end()) return;
@@ -113,7 +114,7 @@ void Component::Destroy()
 // íœ
 void Component::Destroy(const std::string &name)
 {
-	std::cout << " Destroy()" << std::endl;
+	std::cout << Name() << " Destroy()" << std::endl;
 
 	auto itr = childrenList.find(name);
 	if (itr == childrenList.end()) return;
@@ -125,7 +126,7 @@ void Component::Destroy(const std::string &name)
 
 std::shared_ptr<Component> Component::GetComponentInParent()const
 {
-	std::cout << " GetComponentInParent()" << std::endl;
+	std::cout << Name() << " GetComponentInParent()" << std::endl;
 
 	auto parent = Hierarchy::Find<Component>(parentName);
 	if (!parent) return nullptr;

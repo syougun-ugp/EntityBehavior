@@ -4,7 +4,7 @@
 std::unordered_multimap<std::string, std::shared_ptr<EntityHierarchy>> Hierarchy::hierarchyList;
 
 
-void Hierarchy::Sort()
+void Hierarchy::SortingLayerSort()
 {
 	std::vector<std::shared_ptr<EntityHierarchy>> ehList;
 
@@ -50,47 +50,11 @@ void Hierarchy::Clear()
 	hierarchyList.clear();
 }
 
-void Hierarchy::Awake()
-{
-	std::cout << "---------- Hierarchy Awake ----------" << std::endl;
-
-	Sort();
-
-	for (auto& hierarchy : hierarchyList)
-	{
-		if (!hierarchy.second->IsActive()) continue;
-
-		std::cout << hierarchy.second->Name().c_str() << " Awake" << std::endl;
-
-		hierarchy.second->Awake();
-	}
-}
-
-void Hierarchy::Start()
-{
-	std::cout << "---------- Hierarchy Start ----------" << std::endl;
-
-	for (auto& hierarchy : hierarchyList)
-	{
-		if (!hierarchy.second->IsActive()) continue;
-
-		std::cout << hierarchy.second->Name().c_str() << " Start" << std::endl;
-
-		hierarchy.second->Start();
-	}
-}
-
 void Hierarchy::Update()
 {
-	std::cout << "---------- Hierarchy Update ----------" << std::endl;
-
 	for (auto& hierarchy : hierarchyList)
 	{
-		if (!hierarchy.second->IsActive()) continue;
-
-		std::cout << hierarchy.second->Name().c_str() << " Update" << std::endl;
-
-		hierarchy.second->Update();
+		hierarchy.second->Updatable();
 	}
 }
 
@@ -100,11 +64,9 @@ void Hierarchy::Render()
 
 	for (auto& hierarchy : hierarchyList)
 	{
-		if (!hierarchy.second->IsActive()) continue;
-
 		std::cout << hierarchy.second->Name().c_str() << " Render" << std::endl;
 
-		hierarchy.second->Render();
+		hierarchy.second->Renderable();
 	}
 }
 

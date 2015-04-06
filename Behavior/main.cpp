@@ -10,14 +10,18 @@ int main()
 	hierarchy->Register(std::make_shared<Enemy>());
 	hierarchy->Register(std::make_shared<Player>());
 
+	hierarchy->Update();
+	
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+
 	auto player = Hierarchy::Find("Player");
 	player->Instantiate(std::make_shared<Player>("Player2"));
 
-	hierarchy->Awake();
-	hierarchy->Start();
-
 	hierarchy->Update();
-	hierarchy->Render();
+	hierarchy->Update();
+	hierarchy->Update();
 
 	auto playerTagObject = Hierarchy::FindWithTag(Tags::Player);
 	auto playerTagObjects = Hierarchy::FindGameObjectsWithTag(Tags::Player);

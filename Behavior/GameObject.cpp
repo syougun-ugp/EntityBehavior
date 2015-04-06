@@ -59,3 +59,11 @@ std::shared_ptr<GameObject> GameObject::Instantiate(std::shared_ptr<EntityHierar
 	auto object = Hierarchy::Find(gameObject->Name());
 	return object;
 }
+
+
+// •`‰æ‡‚ðÝ’è
+void GameObject::SetSortingLayer(SortingLayer sortingLayer)
+{
+	this->sortingLayer = sortingLayer;
+	Hierarchy::SortingLayerSort();
+}

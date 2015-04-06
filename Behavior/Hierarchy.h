@@ -19,6 +19,7 @@ class Component;
 class Hierarchy
 {
 public:
+
 	// 登録
 	static void Register(std::shared_ptr<EntityHierarchy> entity);
 
@@ -26,18 +27,9 @@ public:
 	static void Deregistration(const std::string& name);
 
 	// 全削除
-	void Clear();
+	static void Clear();
 
-	// Startの前に処理が実行
-	void Awake();
-
-	// Updateの前い処理が実行
-	void Start();
-
-	// アップデート
 	void Update();
-
-	// 描画
 	void Render();
 
 	// 名前で探す
@@ -128,8 +120,18 @@ public:
 		return gameObjects;
 	}
 
+	// 描画順のソート
+	static void SortingLayerSort();
+
 private:
+	enum class UpdateState
+	{
+		Awake,
+		Start,
+		Update,
+	};
+	UpdateState state;
+
 	static std::unordered_multimap<std::string, std::shared_ptr<EntityHierarchy>> hierarchyList;
-	void Sort();
 
 };
