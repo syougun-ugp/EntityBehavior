@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EntityBehavior.cpp" />
     <ClCompile Include="EntityHierarchy.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -90,10 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EntityBehavior.h" />
     <ClInclude Include="EntityHierarchy.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Hierarchy.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMover.h" />

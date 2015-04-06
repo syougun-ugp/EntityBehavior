@@ -12,7 +12,9 @@
 class EntityHierarchy :public Component
 {
 public:
-	EntityHierarchy(const std::string& name,const Tags tag);
+	EntityHierarchy(const std::string& name, const Tags tag);
+	EntityHierarchy(const std::string& name, const SortingLayer sortingLayer);
+	EntityHierarchy(const std::string& name, const Tags tag, const SortingLayer sortingLayer);
 
 	// Start‚Ì‘O‚Éˆ—‚ªÀs‚³‚¹‚é
 	virtual void Awake(){}

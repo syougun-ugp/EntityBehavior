@@ -16,6 +16,20 @@ parentName(name)
 {
 }
 
+Component::Component(const std::string &name, SortingLayer sortingLayer) :
+GameObject(name, sortingLayer),
+gameObject(std::make_shared<GameObject>(name, sortingLayer)),
+parentName(name)
+{
+}
+
+Component::Component(const std::string &name, Tags tag, SortingLayer sortingLayer) :
+GameObject(name, tag, sortingLayer),
+gameObject(std::make_shared<GameObject>(name, tag, sortingLayer)),
+parentName(name)
+{
+}
+
 
 Component::Component(const std::string &name, const std::string& parentName) :
 GameObject(name),

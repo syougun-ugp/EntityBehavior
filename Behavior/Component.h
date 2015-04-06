@@ -19,7 +19,9 @@ class Component :public GameObject
 {
 public:
 	Component(const std::string &name);
-	Component(const std::string &name,Tags tag);
+	Component(const std::string &name, Tags tag);
+	Component(const std::string &name, SortingLayer sortingLayer);
+	Component(const std::string &name, Tags tag, SortingLayer sortingLayer);
 	Component(const std::string &name, const std::string& parentName);
 	Component();
 	
@@ -37,7 +39,7 @@ public:
 	std::shared_ptr<Component> GetComponentInParent()const ;
 
 	// Žæ“¾
-	template<class Type>
+	template<typename Type>
 	std::shared_ptr<Type> GetComponent(const std::string& name)
 	{
 		std::cout << " GetComponent<T>()" << std::endl;
@@ -51,7 +53,7 @@ public:
 	}
 
 	// ”z—ñ‚ðŽæ“¾
-	template<class Type>
+	template<typename Type>
 	std::vector<std::shared_ptr<Type>> GetComponents(const std::string& name)
 	{
 		std::cout << " GetComponents<T>()" << std::endl;
@@ -74,7 +76,7 @@ public:
 	}
 
 	// Žæ“¾
-	template<class Type>
+	template<typename Type>
 	std::shared_ptr<Type> GetComponent()
 	{
 		std::cout << " GetComponent<T>()" << std::endl;

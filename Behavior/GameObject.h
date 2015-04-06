@@ -10,6 +10,7 @@
 #include <memory>
 #include <unordered_map>
 #include "Tag.h"
+#include "Layer.h"
 #include "Object.h"
 
 class Component;
@@ -20,13 +21,19 @@ class GameObject:public Object
 public:
 	GameObject(const std::string &name);
 	GameObject(const std::string &name, Tags tag);
+	GameObject(const std::string &name, Tags tag, SortingLayer sortingLayer);
+	GameObject(const std::string &name, SortingLayer sortingLayer);
 	GameObject();
 
-	Tags Tag()const
+	Tags GetTag()const
 	{
 		return tag;
 	}
 
+	SortingLayer GetSortingLayer()const
+	{
+		return sortingLayer;
+	}
 
 	// ゲームオブジェクトをHierarchyに登録して、生成する
 	// 戻り値としては、登録したゲームオブジェクト
@@ -34,7 +41,7 @@ public:
 
 protected:
 	Tags tag; // オブジェクトのタグ
-
+	SortingLayer sortingLayer; // 描画順レイヤー
 
 private:
 };

@@ -1,12 +1,38 @@
 #include "Hierarchy.h"
+#include <algorithm>
 
 std::unordered_multimap<std::string, std::shared_ptr<EntityHierarchy>> Hierarchy::hierarchyList;
+
+
+void Hierarchy::Sort()
+{
+	std::vector<std::shared_ptr<EntityHierarchy>> ehList;
+
+	for (auto& hierarchy : hierarchyList)
+	{
+		ehList.push_back(hierarchy.second);
+	}
+
+	Clear();
+
+	std::sort(ehList.begin(), ehList.end(), 
+		[](const std::shared_ptr<EntityHierarchy> left, const std::shared_ptr<EntityHierarchy> right)
+	{
+		return left->GetSortingLayer() < right->GetSortingLayer();
+	});
+
+	for (auto& eh : ehList)
+	{
+		hierarchyList.insert(std::make_pair(eh->Name(), eh));
+	}
+}
 
 void Hierarchy::Register(std::shared_ptr<EntityHierarchy> entity)
 {
 	std::cout << entity->Name().c_str() << " ’Ç‰Á" << std::endl;
 
 	hierarchyList.insert(std::make_pair(entity->Name(), entity));
+
 }
 
 void Hierarchy::Deregistration(const std::string& name)
@@ -27,6 +53,8 @@ void Hierarchy::Clear()
 void Hierarchy::Awake()
 {
 	std::cout << "---------- Hierarchy Awake ----------" << std::endl;
+
+	Sort();
 
 	for (auto& hierarchy : hierarchyList)
 	{
@@ -102,7 +130,7 @@ std::shared_ptr<EntityHierarchy> Hierarchy::FindWithTag(const Tags tag)
 
 	for (auto& hierarchy : hierarchyList)
 	{
-		if (hierarchy.second->Tag() != tag) continue;
+		if (hierarchy.second->GetTag() != tag) continue;
 
 		std::cout << hierarchy.second->Name().c_str() << " Žæ“¾" << std::endl;
 
@@ -122,7 +150,7 @@ std::vector<std::shared_ptr<EntityHierarchy>> Hierarchy::FindGameObjectsWithTag(
 
 	for (auto& hierarchy : hierarchyList)
 	{
-		if (hierarchy.second->Tag() != tag) continue;
+		if (hierarchy.second->GetTag() != tag) continue;
 
 		std::cout << hierarchy.second->Name().c_str() << " Žæ“¾" << std::endl;
 

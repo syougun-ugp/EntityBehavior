@@ -2,7 +2,7 @@
 #include "PlayerMover.h"
 
 Player::Player(std::string name) :
-EntityHierarchy(name,Tags::Player)
+EntityHierarchy(name,Tags::Player,SortingLayer::Player)
 {
 
 	AddComponent(std::make_shared<PlayerMover>(*this));

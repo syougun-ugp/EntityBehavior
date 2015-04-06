@@ -5,14 +5,36 @@
 
 GameObject::GameObject(const std::string &name):
 Object(name),
-tag(Tags::Default)
+tag(Tags::Default),
+sortingLayer(SortingLayer::Default)
 {
 
 }
 
 GameObject::GameObject(const std::string &name, Tags tag) :
 tag(tag),
-Object(name)
+Object(name),
+sortingLayer(SortingLayer::Default)
+
+{
+
+}
+
+
+GameObject::GameObject(const std::string &name, SortingLayer sortingLayer) :
+tag(Tags::Default),
+Object(name),
+sortingLayer(sortingLayer)
+{
+
+}
+
+
+
+GameObject::GameObject(const std::string &name, Tags tag, SortingLayer sortingLayer) :
+tag(tag),
+Object(name),
+sortingLayer(sortingLayer)
 {
 
 }
@@ -20,7 +42,9 @@ Object(name)
 
 GameObject::GameObject():
 Object("GameObject"),
-tag(Tags::Default)
+tag(Tags::Default),
+sortingLayer(SortingLayer::Default)
+
 {
 
 }

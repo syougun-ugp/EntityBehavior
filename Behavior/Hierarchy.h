@@ -130,5 +130,6 @@ public:
 
 private:
 	static std::unordered_multimap<std::string, std::shared_ptr<EntityHierarchy>> hierarchyList;
+	void Sort();
 
 };
